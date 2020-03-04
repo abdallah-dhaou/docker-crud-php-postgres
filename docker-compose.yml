@@ -1,0 +1,39 @@
+version: '3.1'
+services:
+  web:
+    build:
+      context: .
+#    command: apt-get install libpq-dev -y
+#    command: docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql 
+#    command: docker-php-ext-install pdo pdo_pgsql pgsql
+    container_name: app_ui
+    volumes:
+      - ./source:/var/www/html
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+    links:
+      - redis:devcache1
+
+  db:
+    image: postgres:9.1
+    container_name: db_container
+    restart: always
+    ports:
+      - "5444:5432"
+    environment:
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: mydb
+      POSTGRES_USER: abdou
+    volumes:
+      - "mydata:/var/lib/postgresql/data"
+      - ./db_setup.sql:/docker-entrypoint-initdb.d/db_setup.sql
+
+
+  redis:
+    build: redis/
+    container_name: devcache1
+
+volumes:
+  mydata:
