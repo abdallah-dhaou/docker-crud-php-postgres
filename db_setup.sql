@@ -39,7 +39,7 @@ ALTER TABLE public.users OWNER TO abdou;
 -- ddl-end --
 
 -- create admin --
-INSERT INTO users values (1,'admin','admin@my_domain','$2y$12$ox93xKZ20tIHCIu2/CeMKOlIOBNLoQ2FyKvYDk/swSwT7mTTFaoRe','Administrator','Administrator',TRUE,NULL);
+INSERT INTO users values (0,'admin','admin@my_domain','$2y$12$ox93xKZ20tIHCIu2/CeMKOlIOBNLoQ2FyKvYDk/swSwT7mTTFaoRe','Administrator','Administrator',TRUE,NULL);
 
 CREATE SEQUENCE public.tbl_token_auth_id_seq
 	INCREMENT BY 1

@@ -12,8 +12,6 @@ class User
     
     function addUser($u_login, $u_email, $u_pass, $u_first_name,$u_last_name, $u_status) {
         $query = "INSERT INTO users  (u_login, u_email, u_pass, u_first_name, u_last_name, u_status) VALUES (?, ?, ?, ?, ?, ?)";
-//        $paramType = "siss";
-//        $u_id='hhh';
         $paramValue = array(
             $u_login,
             $u_email,
@@ -23,26 +21,10 @@ class User
             $u_status
         );
         
-//        $insertId = $this->db_handle->insert($query, $paramType, $paramValue);
+        error_log("\n DUMP addUser data". print_r( $paramValue, true ), 3, "/tmp/errors.log");
         $result = $this->db_handle->insert($query, $paramValue);
         return $result;
-        
-        
-//        $sql = 'INSERT INTO users  (u_id, u_login, u_pass, u_first_name, u_status) VALUES (:u_id, :u_login, :u_pass, :u_first_name, :u_status)';
-//        $stmt = $this->pdo->prepare($sql);
-//        
-//        // pass values to the statement
-//        $stmt->bindValue(':u_id', $u_id);
-//        $stmt->bindValue(':u_login', $u_login);
-//        $stmt->bindValue(':u_pass', $u_pass);
-//        $stmt->bindValue(':u_first_name', $u_first_name);
-//        $stmt->bindValue(':u_status', $u_status);
-//        
-//        // execute the insert statement
-//        $stmt->execute();
-//        
-//        // return generated id
-//        return $this->pdo->lastInsertId('stocks_id_seq');
+
     }
     
     function updateUser($id,$login,$email,$first_name,$last_name,$status) {
@@ -75,7 +57,6 @@ class User
         $paramValue = array(
             $user_id
         );
-//        $this->db_handle->update($query, $paramType, $paramValue);
         $result = $this->db_handle->update($query, $paramValue);
         
         return $result;
@@ -83,7 +64,6 @@ class User
     
     function getUserById($student_id) {
         $query = "SELECT * FROM users WHERE u_id = ?";
-//        $paramType = "i";
         $paramValue = array(
             $student_id
         );
@@ -94,7 +74,6 @@ class User
     
     function getUserByLogin($login) {
         $query = "SELECT * FROM users WHERE u_login = ?";
-//        $paramType = "i";
         $paramValue = array(
             $login
         );
@@ -112,7 +91,6 @@ class User
     function getNextUserID() {
         $sql = "SELECT max(u_id) from users";
 
-        
         $result = $this->db_handle->runBaseQuery($sql);
                 
         return $result;

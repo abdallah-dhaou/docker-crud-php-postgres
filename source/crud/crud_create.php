@@ -1,7 +1,4 @@
 <?php
-
-
-
 require_once $_SERVER['DOCUMENT_ROOT'] . '/header.php';
 $_SESSION['page'] = "create";
 require_once ($_SERVER['DOCUMENT_ROOT'] . "/Classes/User.php");

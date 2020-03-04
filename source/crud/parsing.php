@@ -1,38 +1,44 @@
 <?php
-
-//print_r($_POST);
-//require_once $_SERVER['DOCUMENT_ROOT'] . '/dbconfig.php';
-
 require_once ($_SERVER['DOCUMENT_ROOT'] . "/Classes/User.php");
-
-//$db_handle = new DBController();
-
-//error_log("\n You hit parsing.php!", 3, "/tmp/errors.log");
-
 
 if (isset($_POST['action']) && $_POST['action'] == 'create_user' ) {
 
-//    error_reporting(1);
     $user = new User();
     // Submitted form data
-    $u_id = trim($_POST['u_id']);
+//    $u_id = trim($_POST['u_id']);
     $u_login = trim($_POST['u_login']);
     $u_pass = trim($_POST['u_pass']);
     $u_first_name = trim($_POST['u_first_name']);
     $u_last_name = trim($_POST['u_last_name']);
-    $u_status = trim($_POST['u_status']);
+    
     $u_email = trim($_POST['u_email']);
     
-//    error_log("\n Before hash!", 3, "/tmp/errors.log");
+    error_log("\n u_status : ".$u_status, 3, "/tmp/errors.log");
+    if(empty($_POST['u_status']))
+    {
+        $u_status = 'f';
+        error_log("\n _POST['u_status'] is EMPTY ", 3, "/tmp/errors.log");
+    }
+    else 
+    {
+        $u_status = trim($_POST['u_status']);
+        error_log("\n _POST['u_status'] is NOT EMPTY ", 3, "/tmp/errors.log");
+    }
+
+    error_log("\n u_login : ".$u_login, 3, "/tmp/errors.log");
+    error_log("\n u_pass : ".$u_pass, 3, "/tmp/errors.log");
+    error_log("\n u_first_name : ".$u_first_name, 3, "/tmp/errors.log");
+    error_log("\n u_last_name : ".$u_last_name, 3, "/tmp/errors.log");
+    error_log("\n u_email : ".$u_email, 3, "/tmp/errors.log");
+    error_log("\n u_status : ".$u_status, 3, "/tmp/errors.log");
+    
     $options = array(
         'salt' => random_bytes(22),
         'cost' => 12,
       );
     
     $password_hash = password_hash($u_pass, PASSWORD_BCRYPT, $options);
-//    error_log("\n Pass HASH!".$password_hash, 3, "/tmp/errors.log");
-//    die;
-//    error_log("\n After hash!", 3, "/tmp/errors.log");
+    
     $userResult = $user->addUser( $u_login, $u_email, $password_hash, $u_first_name, $u_last_name, $u_status);
     echo $userResult;
     unset($user);
@@ -45,7 +51,6 @@ if (isset($_POST['action']) && $_POST['action'] == 'update_user' ) {
     // Submitted form data
     $u_id = trim($_POST['u_id_edit']);
     $u_login = trim($_POST['u_login_edit']);
-//    $u_pass = trim($_POST['u_pass_edit']);
     $u_first_name = trim($_POST['u_first_name_edit']);
     $u_last_name = trim($_POST['u_last_name_edit']);
     $u_status = trim($_POST['u_status_edit']);
@@ -63,9 +68,6 @@ if (isset($_POST['action']) && $_POST['action'] == 'get_user' ) {
     // Submitted form data
     $u_id = trim($_POST['u_id']);
     
-//    echo "qdqsdqsdqsdqsdqs".$u_id;
-    
-//    error_log("\n Your ID ".$u_id, 3, "/tmp/errors.log");
     $userResult = $user->getUserById($u_id);
     for($i=0; $i< count($userResult); $i++)
     {
@@ -88,9 +90,6 @@ if (isset($_POST['action']) && $_POST['action'] == 'delete_user' ) {
     // Submitted form data
     $u_id = trim($_POST['u_id']);
     
-//    echo "qdqsdqsdqsdqsdqs".$u_id;
-    
-//    error_log("\n Your ID ".$u_id, 3, "/tmp/errors.log");
     $userResult = $user->deleteUser($u_id);
     
     echo $userResult;

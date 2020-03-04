@@ -7,9 +7,8 @@ session_start();
 
 require_once $_SERVER['DOCUMENT_ROOT']."/Classes/authCookieSessionValidate.php";
 
-error_log("\n isLoggedIn from header : ". $isLoggedIn, 3, "/tmp/errors.log");
 if(!$isLoggedIn) {
-    header("Location: /index_1.php");
+    header("Location: /index.php");
 }
 
 ?>

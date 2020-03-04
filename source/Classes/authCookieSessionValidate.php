@@ -19,7 +19,6 @@ $isLoggedIn = false;
 // Check if loggedin session and redirect if session exists
 if (! empty($_SESSION["member_id"])) {
     $isLoggedIn = true;
-    error_log("\n member_id session||".$_SESSION["member_id"]."||", 3, "/tmp/errors.log");
 }
 // Check if loggedin session exists
 else if (! empty($_COOKIE["member_login"]) && ! empty($_COOKIE["random_password"]) && ! empty($_COOKIE["random_selector"])) {

@@ -1,22 +1,10 @@
 <?php
+require_once  $_SERVER['DOCUMENT_ROOT'] . '/header.php';
 
-
-
-
-require  $_SERVER['DOCUMENT_ROOT'] . '/header.php';
-//require_once ("Classes/DBController.php");
-//echo '<br>hello1';
 require_once ($_SERVER['DOCUMENT_ROOT'] . "/Classes/User.php");
-//echo '<br>hello2';
-//$db_handle = new DBController();
 $user = new User();
 $userResult = $user->getAllUser();
-//$userResult1 = $user->getUserById('7');
 
-//echo $redis->get('u_login');
-
-echo '---'.$_SESSION["member_id"];
-var_dump($_SESSION);
 unset($user);
 ?>
 <div  id="container_article"> 
@@ -350,7 +338,7 @@ else
             processData: false,
             
             success: function (response) {
-//                console.log('return msg :||'+data+'||');
+
                 $("#EditUserModal").modal();
                 $('#u_id_edit').val(id);
                 $('#u_login_edit').val(response.data[0]['u_login']);
@@ -358,7 +346,6 @@ else
                 $('#u_first_name_edit').val(response.data[0]['u_first_name']);
                 $('#u_last_name_edit').val(response.data[0]['u_last_name']);
                 $('#u_status_edit option[value='+response.data[0]['u_status']+']').attr('selected','selected');
-//                console.log(response.data[0]['u_status']);
                 
             }
         });
@@ -434,7 +421,7 @@ else
                 $('.modal-body').css('opacity', '.5');
             },
             success: function (response) {
-//                console.log('return msg :||'+msg+'||');
+
                 if (response == 1) {
                     $('#EditUserModal').modal('hide');
                     swal({
